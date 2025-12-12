@@ -84,3 +84,11 @@ export const logoutUser = async (): Promise<void> => {
         console.log('Client-side token cleared.');
     }
 };
+
+export const setUserPassword = (password) => {
+    return request({
+        url: API_BASE_URL + "/user/set-password",
+        method: 'POST',
+        body: JSON.stringify({ password })
+    });
+};

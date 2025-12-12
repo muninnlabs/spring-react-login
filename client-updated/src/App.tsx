@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { getCurrentUser, logoutUser } from './util/APIUtils';
 import Login from './user/login/Login';
 import Profile from './user/profile/Profile';
+import SetPassword from "./components/SetPassword.tsx";
 import OAuth2RedirectHandler from './user/oauth2/OAuth2RedirectHandler';
 import { ACCESS_TOKEN } from './constants/constants';
 import type {User} from "./types/User";
@@ -39,8 +40,11 @@ function App() {
         logoutUser();
         setIsAuthenticated(false);
         setCurrentUser(null);
-
         navigate('/login' as string);
+    };
+
+    const handleSetPassword = () => {
+        navigate('/set-password'); // or however you handle routing
     };
 
     useEffect(() => {
@@ -71,9 +75,21 @@ function App() {
                 path="/profile"
                 element={
                 isAuthenticated && currentUser
-                    ? <Profile currentUser={currentUser} onLogout={handleLogout}/>
+                    ? <Profile
+                        currentUser={currentUser}
+                        onLogout={handleLogout}
+                        onSetPassword={handleSetPassword}
+                    />
                     : <Navigate to="/login" />
             }
+            />
+            <Route
+                path="/set-password"
+                element={
+                    isAuthenticated && currentUser
+                        ? <SetPassword onPasswordSet={() => navigate('/profile')} />
+                        : <Navigate to="/setpassword" />
+                }
             />
             <Route
                 path="/oauth2/redirect"

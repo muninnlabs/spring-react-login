@@ -4,10 +4,11 @@ import type {User} from '../../types/User';
 
 interface ProfileProps {
     currentUser: User;
-    onLogout: () => void; // Add logout handler prop
+    onLogout: () => void;
+    onSetPassword: () => void;
 }
 
-const Profile: React.FC<ProfileProps> = ({ currentUser, onLogout }) => {
+const Profile: React.FC<ProfileProps> = ({ currentUser, onLogout, onSetPassword }) => {
     const [loading, setLoading] = useState(false);
 
     const loadCurrentlyLoggedInUserDetails = useCallback(async () => {
@@ -43,11 +44,18 @@ const Profile: React.FC<ProfileProps> = ({ currentUser, onLogout }) => {
                             <h4>{currentUser.name}</h4>
                             <p className="text-muted">{currentUser.email}</p>
                             <button
+                                className="btn btn-primary mt-3 mb-2"
+                                onClick={onSetPassword}
+                            >
+                                Set Password
+                            </button>
+                            <button
                                 className="btn btn-danger mt-3"
                                 onClick={onLogout}
                             >
                                 Logout
                             </button>
+
                         </div>
                     </div>
                 </div>

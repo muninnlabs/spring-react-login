@@ -1,5 +1,8 @@
 package com.spring.login.model;
 
 public enum AuthProvider {
-    google
+    local,
+    google,
+    facebook,
+    github
 }

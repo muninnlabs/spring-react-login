@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @Document
@@ -14,6 +15,7 @@ public class User {
 
     private String name;
 
+    @Field("email")
     private String email;
 
     private String imageUrl;
@@ -21,7 +23,11 @@ public class User {
     private Boolean emailVerified = false;
 
     @JsonIgnore
-    private String password = null;
+    @Field("password")
+    private String password;
+
+    @Field("password_set")
+    private Boolean passwordSet = false;
 
     private AuthProvider provider;
 
